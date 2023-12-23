@@ -1,0 +1,8 @@
+# Create Python virtual environment
+python -m venv venv
+
+# Activate Python virtual env in Windows in terminal
+venv\Scripts\activate
+
+# Install dependencies
+pip install -r environment.yaml

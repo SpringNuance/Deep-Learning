@@ -1,0 +1,114 @@
+from os.path import join
+
+from .. import run_nbgrader
+from .base import BaseTestApp
+
+
+class TestNbGraderUpdate(BaseTestApp):
+
+    def test_help(self):
+        """Does the help display without error?"""
+        run_nbgrader(["update", "--help-all"])
+
+    def test_no_args(self):
+        """Is there an error if no arguments are given?"""
+        run_nbgrader(["update"], retcode=1)
+
+    def test_missing_file(self):
+        """Is there an error if the file doesn't exist?"""
+        run_nbgrader(["update", "foo"], retcode=1)
+
+    def test_not_a_notebook(self):
+        """Are non-notebooks ignored?"""
+        with open("foo", "w") as fh:
+            fh.write("blah")
+        run_nbgrader(["update", "foo"])
+
+    def test_single_notebook_v0(self):
+        """Does it work with just a single notebook?"""
+        self._copy_file(join("files", "test-v0.ipynb"), "p1.ipynb")
+        run_nbgrader(["update", "p1.ipynb"])
+
+    def test_single_notebook_v1(self):
+        """Does it work with just a single notebook?"""
+        self._copy_file(join("files", "test-v1.ipynb"), "p1.ipynb")
+        run_nbgrader(["update", "p1.ipynb"])
+
+    def test_single_notebook_v2(self):
+        """Does it work with just a single notebook?"""
+        self._copy_file(join("files", "test-v2.ipynb"), "p2.ipynb")
+        run_nbgrader(["update", "p2.ipynb"])
+
+    def test_validate(self):
+        """Does turning validation on/off work correctly?"""
+
+        # updating shouldn't work if we're validating, too
+        self._copy_file(join("files", "test-v0-invalid.ipynb"), "p1.ipynb")
+        run_nbgrader(["update", "p1.ipynb"], retcode=1)
+
+        # updating should work, but then validation should fail
+        self._copy_file(join("files", "test-v0-invalid.ipynb"), "p1.ipynb")
+        run_nbgrader(["update", "p1.ipynb", "--UpdateApp.validate=False"])
+        run_nbgrader(["validate", "p1.ipynb"], retcode=1)
+
+    def test_validate_too_new(self):
+        """Does turning validation on/off work correctly when the schema is too new?"""
+
+        # updating shouldn't work if we're validating, too
+        self._copy_file(join("files", "too-new.ipynb"), "p1.ipynb")
+        run_nbgrader(["update", "p1.ipynb"], retcode=1)
+
+        # updating should work, but then validation should fail
+        self._copy_file(join("files", "too-new.ipynb"), "p1.ipynb")
+        run_nbgrader(["update", "p1.ipynb", "--UpdateApp.validate=False"])
+        run_nbgrader(["validate", "p1.ipynb"], retcode=1)
+
+    def test_update_assign(self, db, course_dir):
+        run_nbgrader(["db", "assignment", "add", "ps1", "--db", db])
+        run_nbgrader(["db", "student", "add", "foo", "--db", db])
+        run_nbgrader(["db", "student", "add", "bar", "--db", db])
+
+        self._copy_file(join("files", "test-v0.ipynb"), join(course_dir, "source", "ps1", "p1.ipynb"))
+        run_nbgrader(["generate_assignment", "ps1", "--db", db], retcode=1)
+
+        # now update the metadata
+        run_nbgrader(["update", course_dir])
+
+        # now assign should suceed
+        run_nbgrader(["generate_assignment", "ps1", "--db", db])
+
+    def test_update_autograde(self, db, course_dir):
+        run_nbgrader(["db", "assignment", "add", "ps1", "--db", db])
+        run_nbgrader(["db", "student", "add", "foo", "--db", db])
+        run_nbgrader(["db", "student", "add", "bar", "--db", db])
+
+        self._copy_file(join("files", "test.ipynb"), join(course_dir, "source", "ps1", "p1.ipynb"))
+        run_nbgrader(["generate_assignment", "ps1", "--db", db])
+
+        # autograde should fail on old metadata, too
+        self._copy_file(join("files", "test-v0.ipynb"), join(course_dir, "submitted", "foo", "ps1", "p1.ipynb"))
+        run_nbgrader(["autograde", "ps1", "--db", db], retcode=1)
+
+        # now update the metadata
+        run_nbgrader(["update", course_dir])
+
+        # now autograde should suceed
+        run_nbgrader(["autograde", "ps1", "--db", db])
+
+    def test_update_autograde_old_assign(self, db, course_dir):
+        run_nbgrader(["db", "assignment", "add", "ps1", "--db", db])
+        run_nbgrader(["db", "student", "add", "foo", "--db", db])
+        run_nbgrader(["db", "student", "add", "bar", "--db", db])
+
+        self._copy_file(join("files", "test-v0.ipynb"), join(course_dir, "source", "ps1", "p1.ipynb"))
+        run_nbgrader(["generate_assignment", "ps1", "--db", db, "--CheckCellMetadata.enabled=False"])
+
+        # autograde should fail on old metadata, too
+        self._copy_file(join(course_dir, "release", "ps1", "p1.ipynb"), join(course_dir, "submitted", "foo", "ps1", "p1.ipynb"))
+        run_nbgrader(["autograde", "ps1", "--db", db], retcode=1)
+
+        # now update the metadata
+        run_nbgrader(["update", join(course_dir, "submitted")])
+
+        # now autograde should suceed
+        run_nbgrader(["autograde", "ps1", "--db", db])

@@ -1,0 +1,328 @@
+Database models
+===============
+
+.. currentmodule:: nbgrader.api
+
+In general, these database models should **never** be modified by hand. You should
+only ever modify them using a :class:`~nbgrader.api.Gradebook` object, so that
+changes are properly persisted to the database, and so that the models don't end
+up in an inconsistent state. However, some methods of the :class:`~nbgrader.api.Gradebook`
+object return database model objects, so those models and their attributes are
+documented here for reference.
+
+.. autoclass:: Student
+
+    .. autoattribute:: id
+
+    .. autoattribute:: first_name
+
+    .. autoattribute:: last_name
+
+    .. autoattribute:: email
+
+    .. autoattribute:: score
+
+    .. autoattribute:: max_score
+
+    .. autoattribute:: lms_user_id
+
+    .. autoattribute:: submissions
+
+    .. automethod:: to_dict
+
+Master version of an assignment
+-------------------------------
+
+.. autoclass:: Assignment
+
+    .. autoattribute:: id
+
+    .. autoattribute:: name
+
+    .. autoattribute:: duedate
+
+    .. autoattribute:: course_id
+
+    .. autoattribute:: course
+
+    .. autoattribute:: notebooks
+
+    .. autoattribute:: submissions
+
+    .. autoattribute:: num_submissions
+
+    .. autoattribute:: max_score
+
+    .. autoattribute:: max_code_score
+
+    .. autoattribute:: max_written_score
+
+    .. automethod:: to_dict
+
+.. autoclass:: Notebook
+
+    .. autoattribute:: id
+
+    .. autoattribute:: name
+
+    .. autoattribute:: assignment
+        :annotation:
+
+    .. autoattribute:: assignment_id
+
+    .. autoattribute:: kernelspec
+
+    .. autoattribute:: grade_cells
+
+    .. autoattribute:: solution_cells
+
+    .. autoattribute:: task_cells
+
+    .. autoattribute:: source_cells
+
+    .. autoattribute:: submissions
+
+    .. autoattribute:: num_submissions
+
+    .. autoattribute:: max_score
+
+    .. autoattribute:: max_code_score
+
+    .. autoattribute:: max_written_score
+
+    .. autoattribute:: needs_manual_grade
+
+    .. automethod:: to_dict
+
+
+.. autoclass:: GradedMixin
+    
+    .. autoattribute:: max_score
+
+    .. autoattribute:: cell_type
+
+
+.. autoclass:: BaseCell
+
+    .. autoattribute:: id
+
+    .. autoattribute:: name
+    
+    .. autoattribute:: notebook
+        :annotation:
+
+    .. autoattribute:: notebook_id
+
+    .. autoattribute:: assignment
+
+.. autoclass:: GradeCell
+    :show-inheritance:
+
+    .. autoattribute:: id
+
+    .. autoattribute:: grades 
+
+    .. automethod:: to_dict
+
+.. autoclass:: SolutionCell
+
+    .. autoattribute:: id
+
+    .. autoattribute:: comments 
+
+    .. automethod:: to_dict
+
+.. autoclass:: TaskCell
+    :show-inheritance:
+    
+    .. autoattribute:: id
+
+    .. autoattribute:: grades 
+
+    .. autoattribute:: comments 
+
+    .. automethod:: to_dict
+
+.. autoclass:: SourceCell
+
+    .. autoattribute:: id
+
+    .. autoattribute:: name
+
+    .. autoattribute:: cell_type
+
+    .. autoattribute:: locked
+
+    .. autoattribute:: source
+
+    .. autoattribute:: checksum
+
+    .. autoattribute:: notebook
+        :annotation:
+
+    .. autoattribute:: notebook_id
+
+    .. autoattribute:: assignment
+
+    .. automethod:: to_dict
+
+Submitted assignments
+---------------------
+
+.. autoclass:: SubmittedAssignment
+
+    .. autoattribute:: id
+
+    .. autoattribute:: name
+
+    .. autoattribute:: assignment
+        :annotation:
+
+    .. autoattribute:: assignment_id
+
+    .. autoattribute:: student
+        :annotation:
+
+    .. autoattribute:: student_id
+
+    .. autoattribute:: timestamp
+
+    .. autoattribute:: extension
+
+    .. autoattribute:: duedate
+
+    .. autoattribute:: total_seconds_late
+
+    .. autoattribute:: notebooks
+
+    .. autoattribute:: score
+
+    .. autoattribute:: max_score
+
+    .. autoattribute:: code_score
+
+    .. autoattribute:: max_code_score
+
+    .. autoattribute:: written_score
+
+    .. autoattribute:: max_written_score
+
+    .. autoattribute:: needs_manual_grade
+
+    .. autoattribute:: late_submission_penalty
+
+    .. automethod:: to_dict
+
+.. autoclass:: SubmittedNotebook
+
+    .. autoattribute:: id
+
+    .. autoattribute:: name
+
+    .. autoattribute:: assignment
+        :annotation:
+
+    .. autoattribute:: assignment_id
+
+    .. autoattribute:: notebook
+        :annotation:
+
+    .. autoattribute:: notebook_id
+
+    .. autoattribute:: grades
+
+    .. autoattribute:: comments
+
+    .. autoattribute:: student
+
+    .. autoattribute:: flagged
+
+    .. autoattribute:: score
+
+    .. autoattribute:: max_score
+
+    .. autoattribute:: code_score
+
+    .. autoattribute:: max_code_score
+
+    .. autoattribute:: written_score
+
+    .. autoattribute:: max_written_score
+
+    .. autoattribute:: needs_manual_grade
+
+    .. autoattribute:: failed_tests
+
+    .. autoattribute:: late_submission_penalty
+
+.. autoclass:: Grade
+
+    .. autoattribute:: id
+
+    .. autoattribute:: name
+
+    .. autoattribute:: assignment
+
+    .. autoattribute:: notebook
+        :annotation:
+
+    .. autoattribute:: notebook_id
+
+    .. autoattribute:: cell
+        :annotation:
+
+    .. autoattribute:: cell_id
+
+    .. autoattribute:: cell_type
+
+    .. autoattribute:: student
+
+    .. autoattribute:: auto_score
+
+    .. autoattribute:: manual_score
+
+    .. autoattribute:: extra_credit
+
+    .. autoattribute:: score
+
+    .. autoattribute:: max_score
+
+    .. autoattribute:: needs_manual_grade
+
+    .. autoattribute:: failed_tests
+
+    .. automethod:: to_dict
+
+.. autoclass:: Comment
+
+    .. autoattribute:: id
+
+    .. autoattribute:: name
+
+    .. autoattribute:: assignment
+
+    .. autoattribute:: notebook
+        :annotation:
+
+    .. autoattribute:: notebook_id
+
+    .. autoattribute:: cell
+        :annotation:
+
+    .. autoattribute:: cell_id
+
+    .. autoattribute:: student
+
+    .. autoattribute:: auto_comment
+
+    .. autoattribute:: manual_comment
+
+    .. autoattribute:: comment
+
+    .. automethod:: to_dict
+
+.. autoclass:: Course
+
+    .. autoattribute:: id
+
+    .. autoattribute:: assignments

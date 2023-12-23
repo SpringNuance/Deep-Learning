@@ -1,0 +1,139 @@
+Metadata-Version: 2.1
+Name: nbgrader
+Version: 0.8.2
+Summary: A system for assigning and grading notebooks
+Project-URL: Homepage, https://github.com/jupyter/nbgrader
+Author-email: Jupyter Development Team <jupyter@googlegroups.com>
+License: Copyright (c) 2014 Project Jupyter Contributors
+        All rights reserved.
+        
+        Redistribution and use in source and binary forms, with or without
+        modification, are permitted provided that the following conditions are met:
+        
+        1. Redistributions of source code must retain the above copyright notice, this
+           list of conditions and the following disclaimer.
+        
+        2. Redistributions in binary form must reproduce the above copyright notice,
+           this list of conditions and the following disclaimer in the documentation
+           and/or other materials provided with the distribution.
+        
+        3. Neither the name of the copyright holder nor the names of its
+           contributors may be used to endorse or promote products derived from
+           this software without specific prior written permission.
+        
+        THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+        AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+        IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+        DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+        FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+        DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+        SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+        CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+        OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+        OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+License-File: LICENSE
+Keywords: Grading,Homework,Jupyter,JupyterLab,Notebooks
+Classifier: Framework :: Jupyter
+Classifier: Framework :: Jupyter :: JupyterLab
+Classifier: Framework :: Jupyter :: JupyterLab :: 3
+Classifier: Framework :: Jupyter :: JupyterLab :: Extensions
+Classifier: Framework :: Jupyter :: JupyterLab :: Extensions :: Prebuilt
+Classifier: License :: OSI Approved :: BSD License
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Requires-Python: >=3.7
+Requires-Dist: alembic>=1.7
+Requires-Dist: ipython>=8.10.0
+Requires-Dist: ipywidgets>=7.6
+Requires-Dist: jinja2>=3
+Requires-Dist: jsonschema>=3
+Requires-Dist: jupyter-client<8
+Requires-Dist: jupyter-server<2,>=1.12
+Requires-Dist: jupyterlab-server
+Requires-Dist: jupyterlab<4
+Requires-Dist: nbclient>=0.6.1
+Requires-Dist: nbconvert>=6
+Requires-Dist: notebook<7,>=6.4
+Requires-Dist: python-dateutil>=2.8
+Requires-Dist: rapidfuzz>=1.8
+Requires-Dist: requests>=2.26
+Requires-Dist: sqlalchemy<2,>=1.4
+Requires-Dist: traitlets<6,>5.0
+Provides-Extra: dev
+Requires-Dist: tbump; extra == 'dev'
+Requires-Dist: toml; extra == 'dev'
+Provides-Extra: docs
+Requires-Dist: myst-parser; extra == 'docs'
+Requires-Dist: sphinx; extra == 'docs'
+Requires-Dist: sphinx-autodoc-typehints; extra == 'docs'
+Requires-Dist: sphinx-rtd-theme; extra == 'docs'
+Provides-Extra: tests
+Requires-Dist: codecov; extra == 'tests'
+Requires-Dist: coverage; extra == 'tests'
+Requires-Dist: jupyter-packaging; extra == 'tests'
+Requires-Dist: nbval; extra == 'tests'
+Requires-Dist: pytest; extra == 'tests'
+Requires-Dist: pytest-cov; extra == 'tests'
+Requires-Dist: pytest-rerunfailures; extra == 'tests'
+Requires-Dist: pytest-tornasync; extra == 'tests'
+Requires-Dist: pytest-xdist; extra == 'tests'
+Requires-Dist: requests-mock; extra == 'tests'
+Requires-Dist: selenium>=4.3; extra == 'tests'
+Requires-Dist: wheel; extra == 'tests'
+Description-Content-Type: text/markdown
+
+# nbgrader
+
+Build: [![Build](https://img.shields.io/github/workflow/status/jupyter/nbgrader/Test?logo=github&label=tests)](https://github.com/jupyter/nbgrader/actions)
+Forum: [![Google Group](https://img.shields.io/badge/-Google%20Group-lightgrey.svg)](https://groups.google.com/forum/#!forum/jupyter)
+Cite: [![DOI](https://jose.theoj.org/papers/10.21105/jose.00032/status.svg)](https://doi.org/10.21105/jose.00032)
+
+A system for assigning and grading Jupyter notebooks.
+
+[Documentation can be found on Read the Docs.](https://nbgrader.readthedocs.io/en/stable/)
+
+## Highlights of nbgrader
+
+### Instructor toolbar extension for Jupyter notebooks
+The nbgrader toolbar extension for Jupyter notebooks guides the instructor through
+assignment and grading tasks using the familiar Jupyter notebook interface.
+
+![Creating assignment](nbgrader/docs/source/user_guide/images/creating_assignment.gif "Creating assignment")
+
+### Instructor "formgrader" extension for Jupyter notebooks
+
+The formgrader extension for the Jupyter notebook allows instructors to use
+the core functionality of nbgrader---generating the student version of an
+assignment, releasing assignments to students, collecting assignments,
+autograding submissions, and manually grading submissions.
+
+![Formgrader extension](nbgrader/docs/source/user_guide/images/formgrader.gif "Formgrader extension")
+
+### Student assignment list extension for Jupyter notebooks
+Using the assignment list extension, students may conveniently view, fetch,
+submit, and validate their assignments.
+
+![nbgrader assignment list](nbgrader/docs/source/user_guide/images/student_assignment.gif "nbgrader assignment list")
+
+### The command line tools of nbgrader
+
+[Command line tools](https://nbgrader.readthedocs.io/en/latest/command_line_tools/index.html)
+offer an efficient way for the instructor to generate, assign, release, collect,
+and grade notebooks.
+
+### SciPy 2017 overview talk (click to view on YouTube)
+
+[![nbgrader: A Tool for Creating and Grading Assignments in the Jupyter Notebook | SciPy 2017 ](http://img.youtube.com/vi/5WUm0QuJdFw/0.jpg)](http://www.youtube.com/watch?v=5WUm0QuJdFw "nbgrader: A Tool for Creating and Grading Assignments in the Jupyter Notebook | SciPy 2017 ")
+
+## Installation
+
+For detailed instructions on installing nbgrader and the nbgrader extensions
+for Jupyter notebook, please see [Installation](https://nbgrader.readthedocs.io/en/latest/user_guide/installation.html)
+section in the User Guide.
+
+
+## Contributing
+Please see the [contributing guidelines and documentation](https://nbgrader.readthedocs.io/en/latest/contributor_guide/overview.html).
+
+If you want to develop features for nbgrader, please follow the
+[development installation instructions](https://nbgrader.readthedocs.io/en/latest/contributor_guide/installation_developer.html).

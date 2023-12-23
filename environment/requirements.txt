@@ -1,0 +1,14 @@
+matplotlib
+nbstripout
+numpy
+pandas
+pillow
+pytest
+pytorch
+scikit-learn
+scipy
+torchvision
+torchtext
+jupyter
+nbgrader
+nbval

@@ -1,0 +1,26 @@
+# name: dle
+channels:
+  - pytorch
+  - defaults
+  - conda-forge
+dependencies:
+  - matplotlib
+  - nbstripout
+  - numpy
+  - pandas
+  - pillow
+  - pytest
+  - pytorch
+  - scikit-learn
+  - scipy
+  - sqlite
+  - torchvision
+  - torchtext
+  - jupyter
+  - nbgrader
+  - nbval
+  - pip:
+    - einops
+#  - pip:
+#    - https://github.com/jupyter/nbgrader/archive/48721e9.zip
+

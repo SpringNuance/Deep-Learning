@@ -1,0 +1,25 @@
+All assignments in this folder has maximum points on jupyter
+
+The course does not have an exam. 
+The grade is determined by the number of points collected in the eight best assignments. 
+The number of points for assignments:
+
+01_mlp: 6 points
+02_cnn: 6 points
+03_reg: 6 points
+04_rnn: 8 points
+05_transformer: 8 points
+06_gnn: 8 points
+07_ae: 8 points
+08_diffusion: 8 points
+09_ar: 6 points (no exercise session)
+10_gan: 4 points (no exercise session)
+11_fewshot: 6 points (no exercise session)
+
+The tentative grade thresholds are:
+
+22 points: grade 1
+30 points: grade 2
+38 points: grade 3
+46 points: grade 4
+54 points: grade 5
